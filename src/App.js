@@ -22,7 +22,7 @@ function Model({ open, hinge, ...props }) {
     /*group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, open ? Math.sin(t / 10) / 4 : 0, 0.1) */
     /*group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, open ? Math.sin(t / 10) / 10 : 0, 0.1)*/
     group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, open ? (-2 + Math.sin(t)) / 3 : -4.3, 0.1)
-    
+
     /* move the model towards the camera */
     group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, open ? t * 5 : -4.3, 0.1) 
   })
@@ -74,13 +74,6 @@ export default function App() {
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
               <Model open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
           </group> 
-          {/* <group rotation={[0,Math.PI,0]}>
-              <Model1 open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
-    
-          </group>
-          <group rotation={[0,Math.PI,0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
-            <Model2 open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
-          </group> */}
           <Environment preset="city" />
         </Suspense>
         <ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={1.75} far={4.5} />
