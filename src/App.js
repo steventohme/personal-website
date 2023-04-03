@@ -21,13 +21,12 @@ function Model({ open, hinge, ...props }) {
     group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, open ? Math.cos(t / 10) / 10 + 0.25 : 0, 0.1)
     /*group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, open ? Math.sin(t / 10) / 4 : 0, 0.1) */
     /*group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, open ? Math.sin(t / 10) / 10 : 0, 0.1)*/
-    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, open ? (-2 + Math.sin(t)) / 3 : -4.3, 0.1)
+    
+    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, open ? -3 : -4, 0.05)
 
     /* move the model towards the camera */
-    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, open ? t * 5 : -4.3, 0.1) 
+    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, open ? t * 5 : -4.3, 0.1)
   })
-
-  
 
   return (
     <group
@@ -68,7 +67,7 @@ export default function App() {
       <web.h3 style={{ opacity: props.open.to([0, 1], [0, 1]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
         To close the screen, click on the keyboard.
       </web.h3> */}
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, -30], fov: 30 }}>
+      <Canvas camera={{ position: [0, 0, -30], fov: 50}}>
         <three.pointLight position={[10, 10, 10]} intensity={1.5} color={props.open.to([0, 1], ['#f0f0f0', '#d25578'])} />
         <Suspense fallback={null}> 
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
