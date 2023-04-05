@@ -1,4 +1,3 @@
-
 import * as THREE from 'three'
 import React, { useEffect, useRef, useState } from 'react'
 import {useFrame } from '@react-three/fiber'
@@ -14,18 +13,17 @@ export default function BottomModel({ open, clicked, ...props }) {
   
     useFrame((state) => {
       const t = state.clock.getElapsedTime()
+      // bounce laptop
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, !clicked && open ? 0.4 : 0, 0.1)
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, !clicked && open ? Math.cos(t / 10) / 10 + 0.25 : 0, 0.1)
-
       group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, !clicked && open ? (-2 + Math.sin(t)) / 3 : -4.3, 0.1)
-      
-    })
 
-    useFrame(() => {
+      // zoom in
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, clicked && open ? 0.4 : 0, 0.1)
       group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, clicked && open ? -2.8 : -4.3, 0.1)
       group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? -0.1 : 0, 0.1)
       group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 24.1 : 0,0.1)
+      
     })
 
     return (
