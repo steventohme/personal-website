@@ -1,62 +1,15 @@
-import * as THREE from 'three'
-import React, { Suspense, useEffect, useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, useGLTF, ContactShadows, OrbitControls} from '@react-three/drei'
+import React, { Suspense, useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Environment, ContactShadows, OrbitControls} from '@react-three/drei'
 import { useSpring } from '@react-spring/core'
 import { a as three } from '@react-spring/three'
 import { a as web } from '@react-spring/web'
-
-
-
-function Model({ open, hinge, ...props }) {
-  const group = useRef()
-
-  const { nodes, materials } = useGLTF('model.glb')
-
-  const [hovered, setHovered] = useState(false)
-  useEffect(() => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'), [hovered])
-
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime()
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, open ? 0.4 : 0, 0.1)
-    /*group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, open ? Math.cos(t / 10) / 10 + 0.25 : 0, 0.1)*/
-
-    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, open ? -2.8 : -4.3, 0.1)
-    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, open ? -0.1 : 0, 0.1)
-    /*group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, open ? (-2 + Math.sin(t)) / 3 : -4.3, 0.1)*/
-    /* perfect positions, -2.8 y, 24.1 z, 0.4x */
-    /* move the model towards the camera */
-    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, open ? 24.1 : 0,0.1)
-    
-  })
-
-  return (
-    <group
-      ref={group}
-      {...props}
-      onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
-      onPointerOut={() => setHovered(false)}
-      dispose={null}>
-      <three.group rotation-x={hinge} position={[0.1, -0.04, 0.41]}>
-        <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
-          <mesh material={materials.aluminium} geometry={nodes['Cube008'].geometry} />
-          <mesh material={materials['matte.001']} geometry={nodes['Cube008_1'].geometry} />
-          <mesh material={materials['screen.001']} geometry={nodes['Cube008_2'].geometry} />
-        </group>
-      </three.group>
-      <mesh material={materials.keys} geometry={nodes.keyboard.geometry} position={[1.9, 0, 3.45]} />
-      <group position={[0.1, -0.1, 3.39]}>
-        <mesh material={materials.aluminium} geometry={nodes['Cube002'].geometry} />
-        <mesh material={materials.trackpad} geometry={nodes['Cube002_1'].geometry} />
-      </group>
-      <mesh material={materials.touchbar} geometry={nodes.touchbar.geometry} position={[0.1, -0.03, 1.2]} />
-    </group>
-  )
-}
-
+import TopModel from './components/TopModel'
+import BottomModel from './components/BottomModel'
 
 export default function App() {
   const [open, setOpen] = useState(false)
+  const [clicked, setClicked] = useState(false)
   const props = useSpring({ open: Number(open) })
 
   return (
@@ -74,8 +27,11 @@ export default function App() {
         <three.pointLight position={[10, 10, 10]} intensity={1.5} color={props.open.to([0, 1], ['#f0f0f0', '#d25578'])} />
         <Suspense fallback={null}> 
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
-              <Model open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
-          </group> 
+              <TopModel clicked={clicked} open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
+          </group>
+          <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setClicked(!clicked))}>
+              <BottomModel clicked={clicked} open={open}/>
+          </group>
           <Environment preset="city" />
         </Suspense>
         <ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={1.75} far={4.5} />
