@@ -4,12 +4,12 @@ import { Environment, ContactShadows, OrbitControls} from '@react-three/drei'
 import { useSpring } from '@react-spring/core'
 import { a as three } from '@react-spring/three'
 import { a as web } from '@react-spring/web'
-import Model from './components/Model'
-
-
+import TopModel from './components/TopModel'
+import BottomModel from './components/BottomModel'
 
 export default function App() {
   const [open, setOpen] = useState(false)
+  const [clicked, setClicked] = useState(false)
   const props = useSpring({ open: Number(open) })
 
   return (
@@ -27,8 +27,11 @@ export default function App() {
         <three.pointLight position={[10, 10, 10]} intensity={1.5} color={props.open.to([0, 1], ['#f0f0f0', '#d25578'])} />
         <Suspense fallback={null}> 
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
-              <Model open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
-          </group> 
+              <TopModel clicked={clicked} open={open} hinge={props.open.to([0, 1], [1.575, -0.4])} />
+          </group>
+          <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setClicked(!clicked))}>
+              <BottomModel clicked={clicked} open={open}/>
+          </group>
           <Environment preset="city" />
         </Suspense>
         <ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={1.75} far={4.5} />
