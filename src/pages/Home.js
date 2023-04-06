@@ -4,8 +4,8 @@ import { Environment, ContactShadows, OrbitControls} from '@react-three/drei'
 import { useSpring } from '@react-spring/core'
 import { a as three } from '@react-spring/three'
 import { a as web } from '@react-spring/web'
-import TopModel from './components/TopModel'
-import BottomModel from './components/BottomModel'
+import TopModel from '../components/TopModel'
+import BottomModel from '../components/BottomModel'
 
 export default function App() {
   const [open, setOpen] = useState(false)
