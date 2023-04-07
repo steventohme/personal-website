@@ -1,0 +1,38 @@
+.intro-text {
+    position: absolute;
+    width: 686px;
+    height: 144px;
+    left: 635px;
+    top: 410px;
+
+    font-family: inter;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+
+}
+
+.intro-title {
+    position: absolute;
+    width: 685px;
+    height: 70px;
+    left: 635px;
+    top: 340px;
+
+    font-family: inter;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 51px;
+    line-height: 62px;
+}
+
+.me-img {
+    position: absolute;
+    width: 524px;
+    height: 531px;
+    left: 65px;
+    top: 174px;
+    border-radius: 25px;
+    object-fit: cover;
+}

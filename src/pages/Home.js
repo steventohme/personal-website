@@ -15,7 +15,7 @@ export default function App() {
   const navigate = useNavigate();
 
   return (
-    <web.main style={{ background: props.open.to([0, 1], ['#f0f0f0', '#ffab87']) }}>
+    <web.main style={{ background: props.open.to([0, 1], ['#f0f0f0', '#326750']) }}>
       <web.h1 style={{ opacity: props.open.to([0, 1], [1, 0]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
         steven tohme
       </web.h1>
