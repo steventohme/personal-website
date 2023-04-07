@@ -26,7 +26,7 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
 
       if (group.current.position.z > 24.09) {
         console.log('navigate')
-        navigate('/info')
+        navigate('/intro')
       }
     })
 
