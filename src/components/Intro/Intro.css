@@ -12,8 +12,6 @@ intro-text {
     font-size: 30px;
     line-height: 36px;
 
-    color: #000000;
-
 }
 
 intro-title {
@@ -23,11 +21,19 @@ intro-title {
     left: 635px;
     top: 340px;
 
-    font-family: 'Inter';
+    font-family: inter;
     font-style: normal;
     font-weight: 400;
     font-size: 51px;
     line-height: 62px;
+}
 
-    color: #000000;
+me-img {
+    position: absolute;
+    width: 524px;
+    height: 531px;
+    left: 65px;
+    top: 174px;
+    border-radius: 25px;
+    background-image: url('../../Images/me.png');
 }
