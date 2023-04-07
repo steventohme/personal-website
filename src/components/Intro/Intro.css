@@ -1,5 +1,4 @@
-intro-text {
-
+.intro-text {
     position: absolute;
     width: 686px;
     height: 144px;
@@ -14,7 +13,7 @@ intro-text {
 
 }
 
-intro-title {
+.intro-title {
     position: absolute;
     width: 685px;
     height: 70px;
@@ -28,12 +27,12 @@ intro-title {
     line-height: 62px;
 }
 
-me-img {
+.me-img {
     position: absolute;
     width: 524px;
     height: 531px;
     left: 65px;
     top: 174px;
     border-radius: 25px;
-    background-image: url('../../Images/me.png');
+    object-fit: cover;
 }
