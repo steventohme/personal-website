@@ -37,7 +37,6 @@ export default function App() {
           <Environment preset="city" />
         </Suspense>
         <ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={1.75} far={4.5} />
-        <OrbitControls/>
       </Canvas>
     </web.main>
   )
