@@ -19,9 +19,9 @@ export default function TopModel({ open, clicked, hinge, ...props }) {
       group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, !clicked && open ? (-2 + Math.sin(t)) / 3 : -4.3, 0.1)
 
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, clicked && open ? 1.09 : 0, 0.1)
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, clicked && open ? -1.8: -4.3, 0.1)
-      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? -0.1 : 0, 0.1)
-      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 24.5 : 0,0.15)
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, clicked && open ? -1.3: -4.3, 0.1)
+      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? 0.1 : 0, 0.1)
+      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 23.2 : 0,0.15)
       
     })
 
