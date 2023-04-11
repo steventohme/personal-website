@@ -1,10 +1,10 @@
 
 import './Intro.css'
-import me from '../../Images/me.png'
+// import me from '../../Images/me.png'
 export default function IntroText(){
     return (
         <div>
-            <img src={me} className='me-img'/>
+            <img src={'me.png'} className='me-img'/>
             <div className='intro-title'>
                 Why, hello there! I’m Steven. 
             </div>

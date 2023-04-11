@@ -24,7 +24,7 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
       group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? 0 : 0, 0.1)
       group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 23.1 : 0, 0.15)
 
-      if (group.current.position.z > 25) {
+      if (group.current.position.z > 23.05) {
         navigate('/intro')
       }
     })
