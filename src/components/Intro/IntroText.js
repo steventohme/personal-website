@@ -1,6 +1,6 @@
 
 import './Intro.css'
-// import me from '../../Images/me.png'
+
 export default function IntroText(){
     return (
         <div>
