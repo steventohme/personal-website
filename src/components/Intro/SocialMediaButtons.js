@@ -40,6 +40,14 @@ export default function SocialMediaButtons(){
                         </ActionIcon>
                     </a>
                 </Grid.Col>
+
+                <Grid.Col span={1}>
+                    <a href="/sample-resume.pdf" target="_blank" >
+                        <ActionIcon size="xl" color="dark">
+                            <AiFillFileText size={100} />
+                        </ActionIcon>
+                    </a>
+                </Grid.Col>
             
             </Grid>
         </Center>
