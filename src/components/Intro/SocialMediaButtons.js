@@ -33,7 +33,7 @@ export default function SocialMediaButtons(){
                     </a>
                 </Grid.Col>
 
-                <Grid.Col>
+                <Grid.Col span={1}>
                     <a href="https://letterboxd.com/bagellover/" target="_blank" rel="external noreferrer">
                         <ActionIcon size="xl" color="dark">
                             <img src={"/letterboxd.svg"} style={{height: 38, width: 38}}/>
