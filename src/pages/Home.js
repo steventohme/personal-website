@@ -7,7 +7,6 @@ import { a as three } from '@react-spring/three'
 import { a as web } from '@react-spring/web'
 import TopModel from '../components/Home/TopModel'
 import BottomModel from '../components/Home/BottomModel'
-import SocialMediaButtons from '../components/Intro/SocialMediaButtons';
 
 export default function App() {
   const [open, setOpen] = useState(false)
