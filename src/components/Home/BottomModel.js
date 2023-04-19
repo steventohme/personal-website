@@ -14,17 +14,18 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
     useFrame((state) => {
       const t = state.clock.getElapsedTime()
       // bounce laptop
-      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, !clicked && open ? 0.4 : 0, 0.1)
-      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, !clicked && open ? Math.cos(t / 10) / 10 + 0.25 : 0, 0.1)
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, !clicked && open ? (-2 + Math.sin(t)) / 3 : -4.3, 0.1)
+      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x,  !clicked && open ? 0.4 : 0, !clicked && open ? 0.15: 1)
+      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x,  !clicked && open ? Math.cos(t / 10) / 10 + 0.25 : 0, !clicked && open ? 0.15:1)
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y,  !clicked && open ? (-2 + Math.sin(t)) / 3 : -4.3, !clicked && open ? 0.15: 1)
 
       // zoom in
-      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, clicked && open ? 1.09 : 0, 0.1)
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, clicked && open ? -1 : -4.3, 0.1)
-      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? 0 : 0, 0.1)
-      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 23.1 : 0, 0.15)
+      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, clicked && open ? 1.09 : 0, 0.15)
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, clicked && open ? -1 : -4.3, 0.15)
+      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? 0.1 : 0, 0.15)
+      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 23.2 : 0, 0.15)
 
-      if (group.current.position.z > 23.05) {
+
+      if (group.current.position.z > 23.15) {
         navigate('/intro')
       }
     })
