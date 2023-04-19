@@ -18,7 +18,7 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
       // bounce laptop
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x,  !clicked && open ? 0.4 : 0, !clicked && open ? 0.15: 1)
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x,  !clicked && open ? Math.cos(t / 10) / 10 + 0.25 : 0, !clicked && open ? 0.15:1)
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y,  !clicked && open ? (-2 + Math.sin(t)) / 3 : -4.3, !clicked && open ? 0.15: 1)
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y,  !clicked && open ? (-4 + Math.sin(t)) / 3 : -4.3, !clicked && open ? 0.15: 1)
 
       if (clicked && open) {
         if (!changed) {
@@ -27,15 +27,15 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
           changed = true
         }
 
-        group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, 2.85, 0.15)
-        group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, 3.9, 0.15)
-        group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, 0, 0.15)
-        group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, 23,0.15)
+        group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, 2.7, 0.15)
+        group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, 6.6, 0.15)
+        group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, -0.1, 0.15)
+        group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, 23.15,0.15)
       }
 
 
-      if (group.current.position.z > 23.15) {
-        //navigate('/intro')
+      if (group.current.position.z > 23.05) {
+        navigate('/intro')
       }
     })
 
