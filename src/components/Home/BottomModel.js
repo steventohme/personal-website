@@ -10,6 +10,8 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
   
     const [hovered, setHovered] = useState(false)
     useEffect(() => void (document.body.style.cursor = hovered ? 'pointer' : 'auto'), [hovered])
+
+    let changed = false
   
     useFrame((state) => {
       const t = state.clock.getElapsedTime()
@@ -18,15 +20,22 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x,  !clicked && open ? Math.cos(t / 10) / 10 + 0.25 : 0, !clicked && open ? 0.15:1)
       group.current.position.y = THREE.MathUtils.lerp(group.current.position.y,  !clicked && open ? (-2 + Math.sin(t)) / 3 : -4.3, !clicked && open ? 0.15: 1)
 
-      // zoom in
-      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, clicked && open ? 1.09 : 0, 0.15)
-      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, clicked && open ? -1 : -4.3, 0.15)
-      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, clicked && open ? 0.1 : 0, 0.15)
-      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, clicked && open ? 23.2 : 0, 0.15)
+      if (clicked && open) {
+        if (!changed) {
+          group.current.rotation.x = 0
+          group.current.position.y = -4.3
+          changed = true
+        }
+
+        group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, 2.85, 0.15)
+        group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, 3.9, 0.15)
+        group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, 0, 0.15)
+        group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, 23,0.15)
+      }
 
 
       if (group.current.position.z > 23.15) {
-        navigate('/intro')
+        //navigate('/intro')
       }
     })
 
