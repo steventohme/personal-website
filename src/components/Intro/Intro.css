@@ -1,9 +1,9 @@
 .intro-text {
     position: absolute;
-    width: 686px;
-    height: 144px;
-    left: 635px;
-    top: 410px;
+    width: 46.38vw;
+    height: 9.75vw;
+    left: 42.99vw;
+    top: 27.76vw;
 
     font-family: inter;
     font-style: normal;
@@ -15,10 +15,10 @@
 
 .intro-title {
     position: absolute;
-    width: 685px;
-    height: 70px;
-    left: 635px;
-    top: 340px;
+    width: 46.38vw;
+    height: 4.74vw;
+    left: 42.79vw;
+    top: 23.02vw;
 
     font-family: inter;
     font-style: normal;
