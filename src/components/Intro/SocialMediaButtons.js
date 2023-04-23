@@ -5,14 +5,14 @@ import { Center, Grid, ActionIcon } from "@mantine/core";
 import { AiFillInstagram, AiFillGithub, AiFillLinkedin, AiFillFileText} from "react-icons/ai";
 
 export default function SocialMediaButtons(){
-
+    
     return (
-        <Center h={1600}>
+        <Center style={{height:'108.33vw'}}>
             <Grid justify="center" align="center" grow>
                 <Grid.Col span={1}>
                     <a href="https://github.com/steventohme" target="_blank" rel="external noreferrer">
                         <ActionIcon size="xl" color="dark">
-                            <AiFillGithub size={100} />
+                            <AiFillGithub size={'6.77vw'} />
                         </ActionIcon>
                     </a>
                 </Grid.Col>
@@ -20,7 +20,7 @@ export default function SocialMediaButtons(){
                 <Grid.Col span={1}>
                     <a href="https://linkedin.com/in/steven-tohme" target="_blank" rel="external noreferrer">
                         <ActionIcon size="xl" color="dark">
-                            <AiFillLinkedin size={100} />
+                            <AiFillLinkedin size={'6.77vw'} />
                         </ActionIcon>
                     </a>
                 </Grid.Col>
@@ -28,7 +28,7 @@ export default function SocialMediaButtons(){
                 <Grid.Col span={1}>
                     <a href="/sample-resume.pdf" target="_blank" >
                         <ActionIcon size="xl" color="dark">
-                            <AiFillFileText size={100} />
+                            <AiFillFileText size={'6.77vw'} />
                         </ActionIcon>
                     </a>
                 </Grid.Col>
@@ -36,7 +36,7 @@ export default function SocialMediaButtons(){
                 <Grid.Col span={1}>
                     <a href="https://www.instagram.com/stevenlikessandwiches/" target="_blank" rel="external noreferrer">
                         <ActionIcon size="xl" color="dark">
-                            <AiFillInstagram size={100} />
+                            <AiFillInstagram size={'6.77vw'} />
                         </ActionIcon>
                     </a>
                 </Grid.Col>
@@ -44,7 +44,7 @@ export default function SocialMediaButtons(){
                 <Grid.Col span={1}>
                     <a href="https://letterboxd.com/bagellover/" target="_blank" rel="external noreferrer">
                         <ActionIcon size="xl" color="dark">
-                            <img src={"/letterboxd.svg"} style={{height: 38, width: 38}}/>
+                            <img src={"/letterboxd.svg"} style={{height: '2.57vw', width: '2.57vw'}}/>
                         </ActionIcon>
                     </a>
                 </Grid.Col>

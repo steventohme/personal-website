@@ -28,7 +28,7 @@ h1 {
   left: 49.5%;
   transform: translate3d(-50%, -50%, 0);
   font-weight: 500;
-  font-size: 15em;
+  font-size: 16.5vw; 
   letter-spacing: -0.045em;
   white-space: nowrap;
 }
