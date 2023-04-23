@@ -5,9 +5,9 @@ import { Center, Grid, ActionIcon } from "@mantine/core";
 import { AiFillInstagram, AiFillGithub, AiFillLinkedin, AiFillFileText} from "react-icons/ai";
 
 export default function SocialMediaButtons(){
-
+    
     return (
-        <Center h={1600}>
+        <Center style={{height:'108.33vw'}}>
             <Grid justify="center" align="center" grow>
                 <Grid.Col span={1}>
                     <a href="https://github.com/steventohme" target="_blank" rel="external noreferrer">
