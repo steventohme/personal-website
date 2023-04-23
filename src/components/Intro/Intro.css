@@ -29,10 +29,10 @@
 
 .me-img {
     position: absolute;
-    width: 524px;
-    height: 531px;
-    left: 65px;
-    top: 174px;
-    border-radius: 25px;
+    width: 35.48vw;
+    height: 35.95vw;
+    left: 4.4vw;
+    top: 11.78vw;
+    border-radius: 1.69vw;
     object-fit: cover;
 }
