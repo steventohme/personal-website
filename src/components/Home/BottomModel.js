@@ -34,7 +34,7 @@ export default function BottomModel({ open, clicked, navigate, ...props }) {
       }
 
 
-      if (group.current.position.z > 23.05) {
+      if (group.current.position.z > 23.1) {
         navigate('/intro')
       }
     })

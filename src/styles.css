@@ -43,6 +43,7 @@ h2 {
   font-weight: 400;
   font-size: 1.5vw;
   word-wrap: break-word;
+  letter-spacing: -0.045em;
   color: #f0f0f0
 }
 
@@ -58,5 +59,6 @@ h3 {
   font-weight: 400;
   font-size: 1.5vw;
   word-wrap: break-word;
+  letter-spacing: -0.045em;
   color: #f0f0f0
 }

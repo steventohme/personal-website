@@ -18,11 +18,10 @@ export default function TopModel({ open, clicked, hinge,  ...props }) {
     useFrame((state) => {
       const t = state.clock.getElapsedTime()
       // bounce laptop
-      
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, !clicked && open ? 0.4 : 0, !clicked && open ? 0.15: 1)
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, !clicked && open ? Math.cos(t / 10) / 10 + 0.25 : 0, !clicked && open ? 0.15: 1)
       group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, !clicked && open ? (-4 + Math.sin(t)) / 3 : -4.3, !clicked && open ? 0.15: 1)
-      
+
       if (clicked && open) {
         if (!changed) {
           group.current.rotation.x = 0
@@ -31,10 +30,9 @@ export default function TopModel({ open, clicked, hinge,  ...props }) {
         }
 
         group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, 2.7, 0.15)
-        //group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.z, 0.2, 0.15).toPrecision(3)
         group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, 6.6, 0.15)
         group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, -0.1, 0.15)
-        group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, 23.15,0.15)
+        group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, 23.15, 0.15)
       }
       
     })

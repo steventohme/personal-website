@@ -25,6 +25,7 @@
     font-weight: 450;
     font-size: 3.25vw;
     line-height: 4.2vw;
+    word-wrap: break-word;
 }
 
 .preface-text {
@@ -39,6 +40,7 @@
     font-weight: 700;
     font-size: 2.03vw;
     line-height: 2.44vw;
+    word-wrap: break-word;
 }
 
 .me-img {
