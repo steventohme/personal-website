@@ -7,7 +7,7 @@ import { AiFillInstagram, AiFillGithub, AiFillLinkedin, AiFillFileText} from "re
 export default function SocialMediaButtons(){
     
     return (
-        <Center style={{height:'190.33vh'}}>
+        <Center style={{height:'109.33vw'}}>
             <Grid justify="center" align="center" grow>
                 <Grid.Col span={1}>
                     <a href="https://github.com/steventohme" target="_blank" rel="external noreferrer">
@@ -47,9 +47,7 @@ export default function SocialMediaButtons(){
                             <img src={"/letterboxd.svg"} style={{height: '90%', width: '90%'}}/>
                         </ActionIcon>
                     </a>
-                </Grid.Col>
-
-            
+                </Grid.Col> 
             </Grid>
         </Center>
     );
