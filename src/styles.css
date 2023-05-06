@@ -34,16 +34,14 @@ h1 {
 }
 
 h2 {
-  inline-size: 450px;
   margin: 0;
   padding: 0;
   position: absolute;
-  top: 80%;
-  left: 49.5%;
+  top: 80vh;
+  left: 49.5vw;
   transform: translate3d(-50%, -50%, 0);
   font-weight: 400;
-  font-size: 2em;
-  letter-spacing: -0.045em;
+  font-size: 1.5vw;
   word-wrap: break-word;
   color: #f0f0f0
 }
@@ -51,16 +49,14 @@ h2 {
 
 
 h3 {
-  inline-size: 600px;
   margin: 0;
   padding: 0;
   position: absolute;
-  top: 85%;
-  left: 55.5%;
+  top: 84vh;
+  left: 50vw;
   transform: translate3d(-50%, -50%, 0);
   font-weight: 400;
-  font-size: 2em;
-  letter-spacing: -0.045em;
+  font-size: 1.5vw;
   word-wrap: break-word;
   color: #f0f0f0
 }
