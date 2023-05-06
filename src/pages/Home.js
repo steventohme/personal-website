@@ -19,12 +19,12 @@ export default function App() {
       <web.h1 style={{ opacity: props.open.to([0, 1], [1, 0]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
         steven tohme
       </web.h1>
-      {/* <web.h2 style={{ opacity: props.open.to([0, 1], [0, 1]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
-        To navigate, click on the screen.
+      <web.h2 style={{ opacity: props.open.to([0, 1], [0, 1]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
+        To continue, press the trackpad.
       </web.h2>
       <web.h3 style={{ opacity: props.open.to([0, 1], [0, 1]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
-        To close the screen, click on the keyboard.
-      </web.h3> */}
+        Click the screen to close it.
+      </web.h3>
       <Canvas camera={{ position: [0, -0.2, -30], fov: 40}}>
         <three.pointLight position={[10, 10, 10]} intensity={1.5} color={props.open.to([0, 1], ['#f0f0f0', '#d25578'])} />
         <Suspense fallback={null}> 

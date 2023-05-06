@@ -45,6 +45,7 @@ h2 {
   font-size: 2em;
   letter-spacing: -0.045em;
   word-wrap: break-word;
+  color: #f0f0f0
 }
 
 
@@ -55,10 +56,11 @@ h3 {
   padding: 0;
   position: absolute;
   top: 85%;
-  left: 49.5%;
+  left: 55.5%;
   transform: translate3d(-50%, -50%, 0);
   font-weight: 400;
   font-size: 2em;
   letter-spacing: -0.045em;
   word-wrap: break-word;
+  color: #f0f0f0
 }
