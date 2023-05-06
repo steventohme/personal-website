@@ -1,9 +1,9 @@
 .intro-text {
     position: absolute;
-    width: 46.38vw;
+    width: 44.38vw;
     height: 9.75vw;
     left: 42.99vw;
-    top: 27.76vw;
+    top: 22.76vw;
 
     font-family: inter;
     font-style: normal;
@@ -18,13 +18,27 @@
     width: 46.38vw;
     height: 4.74vw;
     left: 42.79vw;
-    top: 23.02vw;
+    top: 18.02vw;
 
     font-family: inter;
     font-style: normal;
     font-weight: 450;
     font-size: 3.25vw;
     line-height: 4.2vw;
+}
+
+.preface-text {
+    position: absolute;
+    width: 46.38vw;
+    height: 9.75vw;
+    left: 42.99vw;
+    top: 30.76vw;
+
+    font-family: inter;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.03vw;
+    line-height: 2.44vw;
 }
 
 .me-img {
