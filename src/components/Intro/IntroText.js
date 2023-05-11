@@ -14,8 +14,8 @@ export default function IntroText(){
 
             </div>
             <div className='preface-text'>
-                This site is still under construction, in the meantime, feel free to visit
-                my social media pages or view my resume to learn more about me.
+                This site is still under construction. 
+                In the meantime, feel free to visit my social media pages or view my resume below to learn more about me.
             </div>
         </div>
 

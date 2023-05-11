@@ -30,16 +30,16 @@
 
 .preface-text {
     position: absolute;
-    width: 46.38vw;
+    width: 43.38vw;
     height: 9.75vw;
     left: 42.99vw;
     top: 30.76vw;
 
     font-family: inter;
     font-style: normal;
-    font-weight: 700;
-    font-size: 2.03vw;
-    line-height: 2.44vw;
+    font-weight: 450;
+    font-size: 1.03vw;
+    line-height: 1.44vw;
     word-wrap: break-word;
 }
 
