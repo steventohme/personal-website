@@ -1,6 +1,5 @@
 
 import React from "react";
-
 import { Center, Grid, ActionIcon } from "@mantine/core";
 import { AiFillInstagram, AiFillGithub, AiFillLinkedin, AiFillFileText} from "react-icons/ai";
 

@@ -1,4 +1,3 @@
-
 import './Intro.css'
 
 export default function IntroText(){
