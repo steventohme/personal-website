@@ -21,7 +21,7 @@ export default function App() {
         steven tohme
       </web.h1>
       <Canvas camera={{ position: [0, -0.2, -30], fov: 40}}>
-        <three.pointLight position={[0, -1, -30]} intensity={0.8} color={props.open.to([0, 1], ['#f0f0f0', '#d25578'])} />
+        <three.pointLight position={[0, -1, -30]} intensity={0.8} color={props.open.to([0, 1], ['#fffff', '#d25578'])} />
         <Steven position={[0,-1,-15]} scale={[10,10,10]}/>
         {/* <Suspense fallback={null}> 
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
