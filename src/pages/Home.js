@@ -16,13 +16,14 @@ export default function App() {
   const navigate = useNavigate();
 
   return (
-    <web.main style={{ background: props.open.to([0, 1], ['#f0f0f0', '#326750']) }}>
+    <web.main>
       <web.h1 style={{ opacity: props.open.to([0, 1], [1, 0]), transform: props.open.to((o) => `translate3d(-50%,${o * 50 - 100}px,0)`) }}>
         steven tohme
       </web.h1>
-      <Canvas camera={{ position: [0, -0.2, -30], fov: 40}}>
-        <three.pointLight position={[0, -1, -30]} intensity={0.8} color={props.open.to([0, 1], ['#fffff', '#d25578'])} />
-        <Steven position={[0,0,0]} scale={[5,5,5]}/>
+      <Canvas camera={{ position: [0, 0, 4], fov: 30}}>
+        <OrbitControls enableZoom={true} enablePan={true} enableRotate={true} />
+        <three.pointLight position={[0, 0, 4]} intensity={0.8} />
+        <Steven/>
         {/* <Suspense fallback={null}> 
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
               <TopModel clicked={clicked} open={open} hinge={props.open.to([0, 1], [1.575, -0.4])}  />

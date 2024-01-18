@@ -16,6 +16,7 @@
     "@react-spring/web": "9.4.5",
     "@react-three/drei": "9.16.0",
     "@react-three/fiber": "8.0.27",
+    "leva": "^0.9.35",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
