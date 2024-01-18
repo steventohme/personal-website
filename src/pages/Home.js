@@ -7,7 +7,7 @@ import { a as three } from '@react-spring/three'
 import { a as web } from '@react-spring/web'
 import TopModel from '../components/Home/TopModel'
 import BottomModel from '../components/Home/BottomModel'
-import Steven from '../components/Home/steven';
+import {Steven} from '../components/Home/steven'
 
 export default function App() {
   const [open, setOpen] = useState(false)
@@ -22,7 +22,7 @@ export default function App() {
       </web.h1>
       <Canvas camera={{ position: [0, -0.2, -30], fov: 40}}>
         <three.pointLight position={[0, -1, -30]} intensity={0.8} color={props.open.to([0, 1], ['#fffff', '#d25578'])} />
-        <Steven position={[0,-1,-15]} scale={[10,10,10]}/>
+        <Steven position={[0,0,0]} scale={[5,5,5]}/>
         {/* <Suspense fallback={null}> 
           <group rotation={[0, Math.PI, 0]} onClick={(e) => (e.stopPropagation(), setOpen(!open))}>
               <TopModel clicked={clicked} open={open} hinge={props.open.to([0, 1], [1.575, -0.4])}  />
