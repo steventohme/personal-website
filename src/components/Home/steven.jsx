@@ -85,6 +85,10 @@ const facialExpressions = {
 export function Steven(props) {
   const { nodes, materials } = useGLTF("/steven.glb");
 
+  const { animations } = useGLTF("animations.glb"); 
+  const group = useRef();
+  const { actions, mixer } = useAnimations(animations, group);
+
 
   return (
     <group {...props} dispose={null}>
