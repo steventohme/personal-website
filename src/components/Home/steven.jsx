@@ -174,7 +174,6 @@ export function Steven(props) {
   const [audio, setAudio] = useState();
 
   useFrame(() => {
-    !setupMode &&
       Object.keys(nodes.EyeLeft.morphTargetDictionary).forEach((key) => {
         const mapping = facialExpressions[facialExpression];
         if (key === "eyeBlinkLeft" || key === "eyeBlinkRight") {
@@ -284,7 +283,8 @@ export function Steven(props) {
       })
     )
   );
-
+  
+  // blink every 2 seconds
   useEffect(() => {
     let blinkTimeout;
     const nextBlink = () => {
