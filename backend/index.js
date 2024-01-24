@@ -3,6 +3,7 @@ import { promises} from "fs";
 import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
+import { exec } from "child_process";
 dotenv.config();
 
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
