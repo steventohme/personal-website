@@ -111,6 +111,6 @@ async def chat_completion(query):
 
     await text_to_speech_input_streaming(VOICE_ID, text_iterator())
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/chat")
+async def chat(query: str):
+    return await chat_completion(query)
