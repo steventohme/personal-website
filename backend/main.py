@@ -10,6 +10,7 @@ import subprocess
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
+# NOTE: run using uvicorn main:app --reload
 
 app = FastAPI()
 load_dotenv()
