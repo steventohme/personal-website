@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { promises} from "fs";
 dotenv.config();
 
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
@@ -18,3 +19,10 @@ const lipSyncMessage = async (message) => {
   );
   console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
 };
+
+const readJsonTranscript = async (file) => {
+  const data = await promises.readFile(file, "utf8");
+  return JSON.parse(data);
+};
+
+
