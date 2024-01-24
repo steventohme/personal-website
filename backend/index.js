@@ -71,4 +71,9 @@ app.post("/chat" , async (req, res) => {
       },
     ]
   });
+  let messages = JSON.parse(completion.choices[0].message.content);
+  if (messages.messages){
+    messages = messages.messages; // Just in case ChatGPT doesnt return desired format
+  }
+  
 });
