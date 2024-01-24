@@ -7,6 +7,11 @@ const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 const elevenLabsApiKey = process.env.ELEVENLABS_API_KEY;
 const voiceID = process.env.VOICE_ID;
 
+const app = express();
+app.use(express.json());
+app.use(cors());
+const port = 8000;
+
 const lipSyncMessage = async (message) => {
   const time = new Date().getTime();
   console.log(`Starting conversion for message ${message}`);
