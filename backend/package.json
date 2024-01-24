@@ -1,0 +1,22 @@
+{
+  "name": "steven",
+  "version": "1.0.0",
+  "description": "me, im him",
+  "main": "index.js",
+  "author": "Steven Tohme",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js --ext js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "elevenlabs-node": "^2.0.3",
+    "express": "^4.18.2",
+    "openai": "^4.25.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
