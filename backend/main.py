@@ -18,6 +18,9 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 ELEVENLABS_API_KEY = os.environ.get('ELEVENLABS_API_KEY')
 VOICE_ID = os.environ.get('VOICE_ID')
 
+aclient = AsyncOpenAI(api_key=OPENAI_API_KEY)
+
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
