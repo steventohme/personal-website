@@ -20,6 +20,9 @@ VOICE_ID = os.environ.get('VOICE_ID')
 
 aclient = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
+def is_installed(lib_name):
+    return shutil.which(lib_name) is not None
+
 async def text_chunker(chunks):
     """Split text into chunks, ensuring to not break sentences."""
     splitters = (".", ",", "?", "!", ";", ":", "—", "-", "(", ")", "[", "]", "}", " ")
@@ -38,6 +41,29 @@ async def text_chunker(chunks):
     if buffer:
         yield buffer + " "
 
+
+async def stream(audio_stream):
+    """Stream audio data using mpv player."""
+    if not is_installed("mpv"):
+        raise ValueError(
+            "mpv not found, necessary to stream audio. "
+            "Install instructions: https://mpv.io/installation/"
+        )
+
+    mpv_process = subprocess.Popen(
+        ["mpv", "--no-cache", "--no-terminal", "--", "fd://0"],
+        stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    )
+
+    print("Started streaming audio")
+    async for chunk in audio_stream:
+        if chunk:
+            mpv_process.stdin.write(chunk)
+            mpv_process.stdin.flush()
+
+    if mpv_process.stdin:
+        mpv_process.stdin.close()
+    mpv_process.wait()
 
 @app.get("/")
 def read_root():
