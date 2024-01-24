@@ -20,6 +20,24 @@ VOICE_ID = os.environ.get('VOICE_ID')
 
 aclient = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
+async def text_chunker(chunks):
+    """Split text into chunks, ensuring to not break sentences."""
+    splitters = (".", ",", "?", "!", ";", ":", "—", "-", "(", ")", "[", "]", "}", " ")
+    buffer = ""
+
+    async for text in chunks:
+        if buffer.endswith(splitters):
+            yield buffer + " "
+            buffer = text
+        elif text.startswith(splitters):
+            yield buffer + text[0] + " "
+            buffer = text[1:]
+        else:
+            buffer += text
+
+    if buffer:
+        yield buffer + " "
+
 
 @app.get("/")
 def read_root():
