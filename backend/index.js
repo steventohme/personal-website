@@ -4,6 +4,7 @@ import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import { exec } from "child_process";
+import voice from "elevenlabs-node";
 dotenv.config();
 
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
@@ -75,5 +76,18 @@ app.post("/chat" , async (req, res) => {
   if (messages.messages){
     messages = messages.messages; // Just in case ChatGPT doesnt return desired format
   }
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
+    const fileName = `auidos/message_${i}.mp3`;
+    const textInput = message.text;
+    await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput);
+
+    await lipSyncMessage(i);
+    message.audio = await audioFileToBase64(fileName);
+    message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
+    
+  }
+
+  res.send(messages);
   
 });
