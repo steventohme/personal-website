@@ -4,7 +4,7 @@ import { button, useControls } from "leva";
 import React, { useEffect, useRef, useState } from "react";
 
 import * as THREE from "three";
-// import { useChat } from "../hooks/useChat";
+import { useChat } from "../hooks/useChat";
 
 const facialExpressions = {
   default: {},
@@ -106,24 +106,24 @@ export function Steven(props) {
     "/steven.glb"
   );
 
-  // const { message, onMessagePlayed, chat } = useChat();
+  const { message, onMessagePlayed, chat } = useChat();
 
-  // const [lipsync, setLipsync] = useState();
+  const [lipsync, setLipsync] = useState();
 
-  // useEffect(() => {
-  //   console.log(message);
-  //   if (!message) {
-  //     setAnimation("Idle");
-  //     return;
-  //   }
-  //   setAnimation(message.animation);
-  //   setFacialExpression(message.facialExpression);
-  //   setLipsync(message.lipsync);
-  //   const audio = new Audio("data:audio/mp3;base64," + message.audio);
-  //   audio.play();
-  //   setAudio(audio);
-  //   audio.onended = onMessagePlayed;
-  // }, [message]);
+  useEffect(() => {
+    console.log(message);
+    if (!message) {
+      setAnimation("Idle");
+      return;
+    }
+    setAnimation(message.animation);
+    setFacialExpression(message.facialExpression);
+    setLipsync(message.lipsync);
+    const audio = new Audio("data:audio/mp3;base64," + message.audio);
+    audio.play();
+    setAudio(audio);
+    audio.onended = onMessagePlayed;
+  }, [message]);
 
   const { animations } = useGLTF("/animations.glb");
 
