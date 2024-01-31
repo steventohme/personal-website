@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "soundFile": "/Users/steventohme/Desktop/tohmetech/backend/audios/message_0.wav",
+    "duration": 1.07
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.17, "value": "X" },
+    { "start": 0.17, "end": 0.21, "value": "B" },
+    { "start": 0.21, "end": 0.39, "value": "C" },
+    { "start": 0.39, "end": 0.60, "value": "B" },
+    { "start": 0.60, "end": 0.74, "value": "E" },
+    { "start": 0.74, "end": 0.95, "value": "B" },
+    { "start": 0.95, "end": 1.07, "value": "X" }
+  ]
+}
