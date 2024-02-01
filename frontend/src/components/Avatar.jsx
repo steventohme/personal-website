@@ -102,11 +102,9 @@ const corresponding = {
 };
 
 let setupMode = false;
-
+const avatar_file = "/models/steven_sweater.glb";
 export function Avatar(props) {
-  const { nodes, materials, scene } = useGLTF(
-    "/models/steven.glb"
-  );
+  const { nodes, materials, scene } = useGLTF(avatar_file);
 
   const { message, onMessagePlayed, chat } = useChat();
 
@@ -376,5 +374,5 @@ export function Avatar(props) {
   );
 }
 
-useGLTF.preload("/models/steven.glb");
+useGLTF.preload(avatar_file);
 useGLTF.preload("/models/animations.glb");
