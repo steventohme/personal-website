@@ -115,7 +115,16 @@ export function Avatar(props) {
       setAnimation("Idle");
       return;
     }
+    if (message.animation === 'Dance'){
+      setAnimation('Dance');
+      const audio = new Audio("data:audio/mp3;base64," + message.audio);
+      audio.play();
+      setAudio(audio);
+      audio.onended = onMessagePlayed;
+      return;
+    }
     setAnimation(message.animation);
+    console.log(message);
     setFacialExpression(message.facialExpression);
     setLipsync(message.lipsync);
     const audio = new Audio("data:audio/mp3;base64," + message.audio);

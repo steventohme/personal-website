@@ -89,13 +89,20 @@ app.post("/chat", async (req, res) => {
   for (let i = 0; i < messages.length; i++) {
     const message = messages[i];
     // generate audio file
-    const fileName = `audios/message_${i}.mp3`; // The name of your audio file
-    const textInput = message.text; // The text you wish to convert to speech
-    await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput);
-    // generate lipsync
-    await lipSyncMessage(i);
-    message.audio = await audioFileToBase64(fileName);
-    message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
+    if (message.animation === "Dance"){
+      message.audio = await audioFileToBase64("audios/dance.mp3");
+      message.lipsync = "";
+    }
+    else{
+      const fileName = `audios/message_${i}.mp3`; // The name of your audio file
+      const textInput = message.text; // The text you wish to convert to speech
+      await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput);
+      // generate lipsync
+      await lipSyncMessage(i);
+      message.audio = await audioFileToBase64(fileName);
+      message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
+    }
+    
   }
 
   res.send({ messages });
