@@ -96,7 +96,7 @@ app.post("/chat", async (req, res) => {
     else{
       const fileName = `audios/message_${i}.mp3`; // The name of your audio file
       const textInput = message.text; // The text you wish to convert to speech
-      await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput);
+      await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput, 0.5, 0.75);
       // generate lipsync
       await lipSyncMessage(i);
       message.audio = await audioFileToBase64(fileName);
