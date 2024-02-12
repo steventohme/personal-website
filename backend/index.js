@@ -59,7 +59,7 @@ app.post("/chat", async (req, res) => {
   const userMessage = req.body.message;
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo-1106",
+    model: "gpt-3.5-turbo-0125",
     max_tokens: 1000,
     temperature: 0.6,
     response_format: {
