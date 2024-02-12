@@ -21,7 +21,7 @@ export const UI = ({ hidden, ...props }) => {
     <div className="background-text"></div>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex justify-between p-4 flex-col pointer-events-none">
         <div className="w-full flex flex-col items-end justify-center gap-4">
-          <button
+          {/* <button
             onClick={() => setCameraZoomed(!cameraZoomed)}
             className="pointer-events-auto bg-pink-500 hover:bg-pink-600 text-white p-4 rounded-md"
           >
@@ -56,8 +56,8 @@ export const UI = ({ hidden, ...props }) => {
                 />
               </svg>
             )}
-          </button>
-          <button
+          </button> */}
+          {/* <button
             onClick={() => {
               const body = document.querySelector("body");
               if (body.classList.contains("greenScreen")) {
@@ -81,12 +81,12 @@ export const UI = ({ hidden, ...props }) => {
                 d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
               />
             </svg>
-          </button>
+          </button> */}
         </div>
         <div className="flex items-center gap-2 pointer-events-auto max-w-screen-sm w-full mx-auto">
           <input
-            className="w-full placeholder:text-gray-800 placeholder:italic p-4 rounded-md bg-opacity-50 bg-white backdrop-blur-md"
-            placeholder="Type a message..."
+            className="w-full placeholder:text-gray-800 placeholder:italic p-3 rounded-md bg-opacity-50 bg-white backdrop-blur-md"
+            placeholder="Talk to Steven..."
             ref={input}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -97,7 +97,7 @@ export const UI = ({ hidden, ...props }) => {
           <button
             disabled={loading || message}
             onClick={sendMessage}
-            className={`bg-pink-500 hover:bg-pink-600 text-white p-4 px-10 font-semibold uppercase rounded-md ${
+            className={`bg-stone-300 hover:bg-stone-400 text-black p-3 px-10 font-semibold uppercase rounded-md ${
               loading || message ? "cursor-not-allowed opacity-30" : ""
             }`}
           >
