@@ -105,20 +105,20 @@ async def text_to_speech_input_streaming(voice_id, text_iterator):
 
 async def chat_completion(query):
     """Retrieve text from OpenAI and pass it to the text-to-speech function."""
-    system_message = {
-        "role": "system",
-        "content": BASE_PROMPT
-    }
-    user_message = {
-        "role": "user",
-        "content": query or "Hello"
-    }
     response = await aclient.chat.completions.create(
         model='gpt-3.5-turbo-0125',
-        messages=[system_message, user_message],
+        messages=[
+        {
+        "role": "system",
+        "content": BASE_PROMPT
+        },
+        {
+            "role": "user",
+            "content": query
+        }
+        ],
         max_tokens=1000,
         temperature=0.6,
-        response_format="json_object",
         stream=True
     )
 
@@ -128,3 +128,8 @@ async def chat_completion(query):
             yield delta.content
 
     await text_to_speech_input_streaming(VOICE_ID, text_iterator())
+
+
+if __name__ == "__main__":
+    user_query = "Hello, tell me a very long story."
+    asyncio.run(chat_completion(user_query))
