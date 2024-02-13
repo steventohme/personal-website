@@ -20,7 +20,7 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'https://oyster-app-hn8af.ondigitalocean.app/' }));
+app.use(cors());
 const port = 3000;
 
 app.get("/", (req, res) => {
