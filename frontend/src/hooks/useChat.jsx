@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const backendUrl = proccess.env.BACKEND || "http://localhost:3000";
+const backendUrl = process.env.BACKEND || "http://localhost:3000";
 
 const ChatContext = createContext();
 
