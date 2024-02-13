@@ -21,7 +21,7 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 const app = express();
 app.use(express.json());
 app.use(cors());
-const port = procces.env.PORT || 3000;
+const port = 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
