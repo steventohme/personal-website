@@ -7,16 +7,28 @@ const ChatContext = createContext();
 export const ChatProvider = ({ children }) => {
   const chat = async (message) => {
     setLoading(true);
-    const data = await fetch(`${backendUrl}/chat`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
-    const resp = (await data.json()).messages;
-    setMessages((messages) => [...messages, ...resp]);
-    setLoading(false);
+    console.log('Sending message:', message); // Log the message being sent
+    try {
+      const response = await fetch(`${backendUrl}/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+      console.log('Response:', response); // Log the response
+      if (!response.ok) {
+        console.error('Response error:', response.statusText); // Log any response error
+      }
+      const data = await response.json();
+      console.log('Response data:', data); // Log the response data
+      const resp = data.messages;
+      setMessages((messages) => [...messages, ...resp]);
+    } catch (error) {
+      console.error('Fetch error:', error); // Log any fetch error
+    } finally {
+      setLoading(false);
+    }
   };
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState();
