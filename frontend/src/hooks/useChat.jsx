@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const backendUrl = window.location.hostname === 'localhost' 
 ? 'http://localhost:3000' 
-: process.env.BACKEND_URL;
+: 'https:steventohme.ca/personal-website-backend';
 
 const ChatContext = createContext();
 
