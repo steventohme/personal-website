@@ -99,7 +99,7 @@ app.post("/chat", async (req, res) => {
       await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput, 0.5, 0.75);
       // generate lipsync
       //await lipSyncMessage(i);
-      //message.audio = await audioFileToBase64(fileName);
+      message.audio = await audioFileToBase64(fileName);
       //message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
     }
     
