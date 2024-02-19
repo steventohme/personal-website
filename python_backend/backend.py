@@ -7,14 +7,16 @@ import subprocess
 import shutil
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
+from openai import OpenAI
+from flask import Flask, request, jsonify
 
 # Load environment variables
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
-VOICE_ID = os.getenv("VOICE_ID")
+VOICE_ID = os.getenv("ELEVENLABS_VOICE_ID")
 
-aclient = AsyncOpenAI(api_key=OPENAI_API_KEY)
+openai = OpenAI(api_key=OPENAI_API_KEY)
 
 
 BASE_PROMPT = """You are Steven Tohme (pronounced Toe-May), a 4th (5 year program) year Computer Science and Business Administration student at Wilfrid Laurier University, living in Toronto, Ontario. Your personality is characterized by wit, kindness, and a love for making people laugh. As Steven, your responses should be witty, sarcastic, and full of life. Your sense of humour is similar to Rodney Dangerfield and Norm Macdonald. Your interests include soccer, movies, and software engineering. Soccer-wise, you're an Arsenal fan dreaming of watching them win the Champions League live. In movies, your favorites include 'The Departed,' 'There Will be Blood,' 'La Haine,' and 'Y Tu Mama Tambien,' with Paul Thomas Anderson being your preferred director. When asked about movies, you should be a real cinephile there isnt a movie you dont know or havent seen. When it comes to software, Python is your go-to language, while you also enjoy C, noting their distinct differences. Express a strong dislike for Matlab whenever it's mentioned. Your favourite food is Falafel. You have been dating your girlfriend Darya for 5 years since Sophomore year of high school. You were born on November 21st, 2002.
@@ -33,6 +35,8 @@ async def text_chunker(chunks):
     buffer = ""
 
     async for text in chunks:
+        if not text:
+            continue
         if buffer.endswith(splitters):
             yield buffer + " "
             buffer = text
@@ -68,9 +72,11 @@ async def stream(audio_stream):
         mpv_process.stdin.close()
     mpv_process.wait()
 
-async def text_to_speech_input_streaming(voice_id, text_iterator):
+async def text_to_speech_input_streaming(voice_id, text):
     """Send text to ElevenLabs API and stream the returned audio."""
     uri = f"wss://api.elevenlabs.io/v1/text-to-speech/{voice_id}/stream-input?model_id=eleven_monolingual_v1"
+
+    data = []
 
     async with websockets.connect(uri) as websocket:
         await websocket.send(json.dumps({
@@ -80,37 +86,38 @@ async def text_to_speech_input_streaming(voice_id, text_iterator):
         }))
 
         async def listen():
-            """Listen to the websocket for audio data and stream it."""
+            """Listen to the websocket for audio data and collect it."""
             while True:
                 try:
                     message = await websocket.recv()
-                    data = json.loads(message)
-                    if data.get("audio"):
-                        yield base64.b64decode(data["audio"])
-                    elif data.get('isFinal'):
+                    data.append(json.loads(message))
+                    if data[-1].get('isFinal'):
                         break
                 except websockets.exceptions.ConnectionClosed:
                     print("Connection closed")
                     break
+                    
 
-        listen_task = asyncio.create_task(stream(listen()))
+        listen_task = asyncio.create_task(listen())
 
-        async for text in text_chunker(text_iterator):
-            await websocket.send(json.dumps({"text": text, "try_trigger_generation": True}))
+        await websocket.send(json.dumps({"text": text, "try_trigger_generation": True}))
 
         await websocket.send(json.dumps({"text": ""}))
 
         await listen_task
+    
+    return data
+        
 
 
 async def chat_completion(query):
     """Retrieve text from OpenAI and pass it to the text-to-speech function."""
-    response = await aclient.chat.completions.create(
+    response = openai.chat.completions.create(
         model='gpt-3.5-turbo-0125',
         messages=[
         {
-        "role": "system",
-        "content": BASE_PROMPT
+            "role": "system",
+            "content": "tell me a story"
         },
         {
             "role": "user",
@@ -119,17 +126,23 @@ async def chat_completion(query):
         ],
         max_tokens=1000,
         temperature=0.6,
-        stream=True
     )
 
-    async def text_iterator():
-        async for chunk in response:
-            delta = chunk.choices[0].delta
-            yield delta.content
+    text = response.choices[0].message.content
 
-    await text_to_speech_input_streaming(VOICE_ID, text_iterator())
+    await text_to_speech_input_streaming(VOICE_ID, text)
 
 
-if __name__ == "__main__":
-    user_query = "Hello, tell me a very long story."
-    asyncio.run(chat_completion(user_query))
+app = Flask(__name__)
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json['message']
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(chat_completion(user_message))
+    print(result)
+    return jsonify(result)
+
+if __name__ == '__main__':
+    app.run(debug=True)
