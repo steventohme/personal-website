@@ -25,7 +25,7 @@ const app = express();
 const corsOptions = {
   origin: 'https://steventohme.ca',
   optionsSuccessStatus: 200
-};'
+};
 app.use(express.json());
 app.use(cors(corsOptions))
 const port = 3000;
