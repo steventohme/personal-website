@@ -22,8 +22,12 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 
 const app = express();
+const corsOptions = {
+  origin: 'https://steventohme.ca',
+  optionsSuccessStatus: 200
+};'
 app.use(express.json());
-app.use(cors())
+app.use(cors(corsOptions))
 const port = 3000;
 
 app.get("/", (req, res) => {

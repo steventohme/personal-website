@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const backendUrl = window.location.hostname === 'localhost' 
-? 'http://localhost:3000' 
-: 'https://d48ggk0.165.227.218.168.sslip.io';
+  ? 'http://localhost:3000' 
+  : 'https://d48ggk0.165.227.218.168.sslip.io';
 
 
 
@@ -17,7 +17,6 @@ export const ChatProvider = ({ children }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({ message }),
       });
