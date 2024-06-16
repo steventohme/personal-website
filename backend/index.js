@@ -57,6 +57,7 @@ const lipSyncMessage = async (message) => {
 };
 
 app.post("/chat", async (req, res) => {
+  res.send("Hello World!");
   const userMessage = req.body.message;
 
   const completion = await openai.chat.completions.create({
