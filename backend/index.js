@@ -19,16 +19,11 @@ const openai = new OpenAI({
 const elevenLabsApiKey = process.env.ELEVEN_LABS_API_KEY;
 const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
-const allowCrossDomain = (req, res, next) => {
-  res.header(`Access-Control-Allow-Origin`, `*`);
-  res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
-  res.header(`Access-Control-Allow-Headers`, `Content-Type, Access-Control-Allow-Origin`);
-  next();
-};
+
 
 const app = express();
 app.use(express.json());
-app.use(allowCrossDomain)
+app.use(cors())
 const port = 3000;
 
 app.get("/", (req, res) => {
