@@ -22,7 +22,7 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin:["https://steventohme.ca", "http://localhost:5173"]
+  origin:["https://steventohme.ca/", "http://localhost:5173"]
   }));
 const port = 3000;
 
