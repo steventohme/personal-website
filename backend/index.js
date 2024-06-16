@@ -28,7 +28,7 @@ const allowCrossDomain = (req, res, next) => {
 
 const app = express();
 app.use(express.json());
-appp.use(allowCrossDomain)
+app.use(allowCrossDomain)
 const port = 3000;
 
 app.get("/", (req, res) => {
