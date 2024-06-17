@@ -46,6 +46,7 @@ app.get("/voices", async (req, res) => {
 
 const execCommand = (command) => {
   return new Promise((resolve, reject) => {
+    const fullCommand = command.replace('ffmpeg', '/usr/bin/ffmpeg');
     exec(command, (error, stdout, stderr) => {
       if (error) reject(error);
       resolve(stdout);
