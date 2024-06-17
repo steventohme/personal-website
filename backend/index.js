@@ -20,17 +20,19 @@ const elevenLabsApiKey = process.env.ELEVEN_LABS_API_KEY;
 const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 
-const corsOptions = {
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}
 
 const app = express();
 app.use(express.json());
 
-app.options('*', cors(corsOptions))
+const corsOptions = {
+  origin: "https://steventohme.ca", // Update this to your domain
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
 const port = 3000;
 
 app.get("/", (req, res) => {
