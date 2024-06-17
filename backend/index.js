@@ -45,7 +45,7 @@ app.get("/voices", async (req, res) => {
   res.send(await voice.getVoices(elevenLabsApiKey));
 });
 
-
+console.log(`ffmpeg path: ${ffmpegStatic}`);
 const execCommand = (command) => {
   return new Promise((resolve, reject) => {
     const fullCommand = command.replace('ffmpeg', ffmpegStatic);
