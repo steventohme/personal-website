@@ -20,9 +20,15 @@ const elevenLabsApiKey = process.env.ELEVEN_LABS_API_KEY;
 const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 
+const corsOptions = {
+  origin: 'https://steventohme.ca',
+  optionsSuccessStatus: 200
+}
 
 const app = express();
 app.use(express.json());
+
+app.options('*', cors(corsOptions))
 const port = 3000;
 
 app.get("/", (req, res) => {
@@ -106,9 +112,9 @@ app.post("/chat", async (req, res) => {
     }
     
   }
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Allow-Origin', 'https://steventohme.ca');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  // res.setHeader('Content-Type', 'application/json');
+  // res.setHeader('Access-Control-Allow-Origin', 'https://steventohme.ca');
+  // res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.send({ messages });
 });
 
