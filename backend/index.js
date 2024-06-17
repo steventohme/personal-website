@@ -23,7 +23,7 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 const app = express();
 const corsOptions = {
-  origin: 'https://steventohme.ca',
+  origin: 'https://oyster-app-hn8af.ondigitalocean.app/',
   optionsSuccessStatus: 200
 };
 app.use(express.json());
