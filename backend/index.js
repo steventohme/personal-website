@@ -22,12 +22,7 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 
 const app = express();
-const corsOptions = {
-  origin: 'https://steventohme.ca',
-  optionsSuccessStatus: 200
-};
 app.use(express.json());
-app.use(cors(corsOptions))
 const port = 3000;
 
 app.get("/", (req, res) => {
@@ -62,7 +57,7 @@ const lipSyncMessage = async (message) => {
   console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
 };
 
-app.post("/chat", cors(corsOptions), async (req, res) => {
+app.post("/chat", async (req, res) => {
   const userMessage = req.body.message;
 
   const completion = await openai.chat.completions.create({
