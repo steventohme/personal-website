@@ -23,7 +23,7 @@ const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
 const app = express();
 const corsOptions = {
-  origin: 'https://oyster-app-hn8af.ondigitalocean.app/',
+  origin: 'https://steventohme.ca',
   optionsSuccessStatus: 200
 };
 app.use(express.json());
@@ -62,7 +62,7 @@ const lipSyncMessage = async (message) => {
   console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
 };
 
-app.post("/chat", async (req, res) => {
+app.post("/chat", cors(corsOptions), async (req, res) => {
   const userMessage = req.body.message;
 
   const completion = await openai.chat.completions.create({
@@ -111,7 +111,9 @@ app.post("/chat", async (req, res) => {
     }
     
   }
-
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', 'https://steventohme.ca');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.send({ messages });
 });
 
