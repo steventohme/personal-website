@@ -45,10 +45,8 @@ app.get("/voices", async (req, res) => {
   res.send(await voice.getVoices(elevenLabsApiKey));
 });
 
-console.log(`ffmpeg path: ${ffmpegStatic}`);
 const execCommand = (command) => {
   return new Promise((resolve, reject) => {
-    const fullCommand = command.replace('ffmpeg', ffmpegStatic);
     exec(command, (error, stdout, stderr) => {
       if (error) reject(error);
       resolve(stdout);
@@ -60,7 +58,7 @@ const lipSyncMessage = async (message) => {
   const time = new Date().getTime();
   console.log(`Starting conversion for message ${message}`);
   await execCommand(
-    `ffmpeg -y -i audios/message_${message}.mp3 audios/message_${message}.wav`
+    `${ffmpegStatic} -y -i audios/message_${message}.mp3 audios/message_${message}.wav`
     // -y to overwrite the file
   );
   console.log(`Conversion done in ${new Date().getTime() - time}ms`);
