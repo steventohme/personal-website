@@ -27,7 +27,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://steventohme.ca", // Update this to your domain
+  origin: "https://steventohme.ca",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204
