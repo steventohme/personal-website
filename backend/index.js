@@ -1,16 +1,16 @@
 import { exec } from "child_process";
 import cors from "cors";
 import dotenv from "dotenv";
-import voice from "elevenlabs-node";
+import { ElevenLabsClient } from "elevenlabs";
 import express from "express";
 import { promises as fs } from "fs";
 import OpenAI from "openai";
-import ffmpegStatic from "ffmpeg-static";
 dotenv.config();
 
-const BASE_PROMPT = await fs.readFile('backend/prompt.txt', 'utf-8');
+const BASE_PROMPT = await fs.readFile('prompt.txt', 'utf-8');
 
-const binFolder = process.env.NODE_ENV === 'production' ? 'bin_deploy' : 'bin';
+const env = process.env.NODE_ENV || "development";
+const binFolder = env === 'production' ? 'bin_deploy' : 'bin';
 console.log(`Using ${binFolder} folder`);
 
 const openai = new OpenAI({
@@ -20,13 +20,13 @@ const openai = new OpenAI({
 const elevenLabsApiKey = process.env.ELEVEN_LABS_API_KEY;
 const voiceID = process.env.ELEVEN_LABS_VOICE_ID;
 
-
+const client = new ElevenLabsClient({ apiKey: elevenLabsApiKey});
 
 const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://steventohme.ca",
+  origin: env === 'development' ? "http://localhost:5173" : "https://steventohme.ca",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204
@@ -41,38 +41,94 @@ app.get("/", (req, res) => {
 });
 
 app.get("/voices", async (req, res) => {
-  res.send(await voice.getVoices(elevenLabsApiKey));
+  const voices = await elevenLabsClient.voices.list();
+  res.send(voices);
 });
 
-const execCommand = (command) => {
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      if (error) reject(error);
-      resolve(stdout);
-    });
-  });
-};
+function convertAlignmentToMouthCues(alignment) {
+  // Use normalized alignment values.
+  const totalDuration = alignment.character_end_times_seconds[alignment.character_end_times_seconds.length - 1];
+  const sampleInterval = 0.05; // sample every 50ms
+  let cues = [];
+  let currentTime = 0;
+  let currentValue = null;
+  let groupStart = 0;
+  
+  while (currentTime <= totalDuration) {
+    // Find the character covering currentTime.
+    // (Assumes alignment arrays are sorted in time.)
+    let index = alignment.character_start_times_seconds.findIndex(
+      (start, i) => start <= currentTime && alignment.character_end_times_seconds[i] >= currentTime
+    );
+    if (index === -1) {
+      index = alignment.characters.length - 1;
+    }
+    let mapped = mapCharToMouthCue(alignment.characters[index]);
+    if (currentValue === null) {
+      currentValue = mapped;
+      groupStart = currentTime;
+    } else if (mapped !== currentValue) {
+      cues.push({ start: groupStart, end: currentTime, value: currentValue });
+      currentValue = mapped;
+      groupStart = currentTime;
+    }
+    currentTime += sampleInterval;
+  }
+  // Add the final group.
+  cues.push({ start: groupStart, end: totalDuration, value: currentValue });
+  
+  // Ensure first cue starts at 0 and last cue ends at totalDuration.
+  if (cues.length > 0) {
+    cues[0].start = 0;
+    cues[cues.length - 1].end = totalDuration;
+  }
+  
+  // Merge cues that are too short (less than 40ms) with the previous cue.
+  const minDuration = 0.04;
+  let merged = [];
+  for (const cue of cues) {
+    if (merged.length > 0 && (cue.end - cue.start) < minDuration) {
+      // Extend the previous cue's end time.
+      merged[merged.length - 1].end = cue.end;
+    } else {
+      merged.push(cue);
+    }
+  }
+  
+  return {
+    metadata: {
+      // You might optionally include a soundFile property if needed.
+      duration: totalDuration
+    },
+    mouthCues: merged
+  };
+}
 
-const lipSyncMessage = async (message) => {
-  const time = new Date().getTime();
-  console.log(`Starting conversion for message ${message}`);
-  await execCommand(
-    `${ffmpegStatic} -y -i audios/message_${message}.mp3 audios/message_${message}.wav`
-    // -y to overwrite the file
-  );
-  console.log(`Conversion done in ${new Date().getTime() - time}ms`);
-  await execCommand(
-    `./${binFolder}/rhubarb -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`
-  );
-  // -r phonetic is faster but less accurate
-  console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
-};
+function mapCharToMouthCue(char) {
+  if (char.trim() === '') {
+    return 'X'; // Idle position for spaces/pauses.
+  }
+  const c = char.toUpperCase();
+  if (['P', 'B', 'M'].includes(c)) return 'A';
+  // You can adjust these rules based on your phonetic expectations.
+  if (['A'].includes(c)) return 'D'; // wide open (AA)
+  if (['O'].includes(c)) return 'E'; // rounded (AO/ER)
+  if (['W'].includes(c)) return 'F'; // puckered for W sounds
+  if (['F', 'V'].includes(c)) return 'G';
+  if (['L'].includes(c)) return 'H';
+  // For vowels that might be pronounced like "I" or "E",
+  // you may want a slightly open mouth:
+  if (['E', 'I'].includes(c)) return 'C';
+  // Otherwise, default most consonants to "B"
+  return 'B';
+}
+
 
 app.post("/chat", async (req, res) => {
   const userMessage = req.body.message;
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo-1106",
+    model: "gpt-4-turbo",
     max_tokens: 1000,
     temperature: 0.6,
     response_format: {
@@ -85,7 +141,7 @@ app.post("/chat", async (req, res) => {
         ${BASE_PROMPT}
         You will always reply with a JSON array of messages. With a maximum of 3 messages.
         Each message has a text, facialExpression, and animation property.
-        The different facial expressions are: smile, sad, angry, surprised, funnyFace, and default.
+        The different facial expressions are: smile, sad, angry, surprised, and default.
         The different animations are: Laughing, Laughing_Hard, Idle, Dance, Slanted_Stance, Talking_Explanation, Talking_Explanation2, and Yelling. 
         `,
       },
@@ -97,41 +153,33 @@ app.post("/chat", async (req, res) => {
   });
   let messages = JSON.parse(completion.choices[0].message.content);
   if (messages.messages) {
-    messages = messages.messages; // ChatGPT is not 100% reliable, sometimes it directly returns an array and sometimes a JSON object with a messages property
+    messages = messages.messages;
   }
   for (let i = 0; i < messages.length; i++) {
     const message = messages[i];
-    // generate audio file
+
     if (message.animation === "Dance"){
-      message.audio = await audioFileToBase64("audios/dance.mp3");
+      message.audio = await fs.readFile('audios/dance.txt', 'base64');
       message.lipsync = "";
     }
     else{
-      const fileName = `audios/message_${i}.mp3`; // The name of your audio file
-      const textInput = message.text; // The text you wish to convert to speech
-      await voice.textToSpeech(elevenLabsApiKey, voiceID, fileName, textInput, 0.5, 0.75);
-      // generate lipsync
-      await lipSyncMessage(i);
-      message.audio = await audioFileToBase64(fileName);
-      message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
+      const textInput = message.text;
+
+      const startTime = Date.now();
+      const result = await client.textToSpeech.convertWithTimestamps(voiceID, {
+        text: message.text,
+        model_id: "eleven_flash_v2"
+      });
+      const elapsedTime = Date.now() - startTime;
+      console.log(`Text to speech conversion took ${elapsedTime}ms`);
+
+      message.audio = result.audio_base64;
+      message.lipsync = convertAlignmentToMouthCues(result.alignment);
     }
     
   }
-  // res.setHeader('Content-Type', 'application/json');
-  // res.setHeader('Access-Control-Allow-Origin', 'https://steventohme.ca');
-  // res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.send({ messages });
 });
-
-const readJsonTranscript = async (file) => {
-  const data = await fs.readFile(file, "utf8");
-  return JSON.parse(data);
-};
-
-const audioFileToBase64 = async (file) => {
-  const data = await fs.readFile(file);
-  return data.toString("base64");
-};
 
 app.listen(port, () => {
   console.log(`Steven is listening on port ${port}`);
