@@ -1,0 +1,63 @@
+api/tsconfig.json
+  01c26cb015be8e02 1-15
+src/main.tsx
+  01c26cb015be8e02 1-14
+tsconfig.node.json
+  01c26cb015be8e02 1-12
+src/components/Avatar.tsx
+  01c26cb015be8e02 1-300
+src/hooks/useChat.tsx
+  01c26cb015be8e02 1-83
+index.html
+  01c26cb015be8e02 1-14
+vercel.json
+  01c26cb015be8e02 1-11
+src/components/UI.tsx
+  01c26cb015be8e02 1-54
+postcss.config.js
+  01c26cb015be8e02 1-7
+src/index.css
+  01c26cb015be8e02 1-39
+package.json
+  01c26cb015be8e02 1-37
+src/App.tsx
+  01c26cb015be8e02 1-19
+tailwind.config.js
+  01c26cb015be8e02 1-13
+src/types.ts
+  01c26cb015be8e02 1-25
+README.md
+  01c26cb015be8e02 1,3-54
+src/vite-env.d.ts
+  01c26cb015be8e02 1-2
+.gitignore
+  01c26cb015be8e02 1-7,9-28
+api/chat.ts
+  01c26cb015be8e02 6-39,41,50-70,72-91,93-102,105-110,112-142,145-164
+tsconfig.json
+  01c26cb015be8e02 1-29
+vite.config.ts
+  01c26cb015be8e02 1-13
+src/components/Experience.tsx
+  01c26cb015be8e02 1-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.26",
+  "base_commit_sha": "62f9166b4f792f786ea53b64b44db3ac43ac9d2a",
+  "prompts": {
+    "01c26cb015be8e02": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8f51b252-1910-4699-858e-df0211cdcf7a",
+        "model": "claude-4.5-opus-high-thinking"
+      },
+      "human_author": "steventohme <steven@workweave.ai>",
+      "messages": [],
+      "total_additions": 989,
+      "total_deletions": 11,
+      "accepted_lines": 978,
+      "overriden_lines": 20
+    }
+  }
+}
