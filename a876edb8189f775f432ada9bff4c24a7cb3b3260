@@ -1,0 +1,25 @@
+src/components/Experience.tsx
+  01c26cb015be8e02 6
+src/components/Avatar.tsx
+  01c26cb015be8e02 115,141-142,148,150
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.26",
+  "base_commit_sha": "a876edb8189f775f432ada9bff4c24a7cb3b3260",
+  "prompts": {
+    "01c26cb015be8e02": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8f51b252-1910-4699-858e-df0211cdcf7a",
+        "model": "claude-4.5-opus-high-thinking"
+      },
+      "human_author": "steventohme <steven@workweave.ai>",
+      "messages": [],
+      "total_additions": 7,
+      "total_deletions": 37,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  }
+}
