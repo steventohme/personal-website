@@ -112,7 +112,7 @@ export function Avatar(props: JSX.IntrinsicElements['group']) {
 
   const { animations } = useGLTF("/models/animations.glb");
   const group = useRef<THREE.Group>(null);
-  const { actions, mixer } = useAnimations(animations, group);
+  const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
     if (!message) {
@@ -138,18 +138,21 @@ export function Avatar(props: JSX.IntrinsicElements['group']) {
     newAudio.onended = onMessagePlayed;
   }, [message, onMessagePlayed]);
 
+  const isFirstAnimation = useRef(true);
+
   useEffect(() => {
     const action = actions[animation];
     if (action) {
       action
         .reset()
-        .fadeIn(mixer.stats.actions.inUse === 0 ? 0 : 0.5)
+        .fadeIn(isFirstAnimation.current ? 0 : 0.5)
         .play();
+      isFirstAnimation.current = false;
       return () => {
         action.fadeOut(0.5);
       };
     }
-  }, [animation, actions, mixer]);
+  }, [animation, actions]);
 
   const lerpMorphTarget = (target: string, value: number, speed = 0.1) => {
     scene.traverse((child: THREE.Object3D) => {
