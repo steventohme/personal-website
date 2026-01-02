@@ -4,13 +4,14 @@ import {
   Environment,
   Text,
 } from "@react-three/drei";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChat } from "../hooks/useChat";
 import { Avatar } from "./Avatar";
 
-const Dots = (props) => {
+const Dots = (props: JSX.IntrinsicElements['group']) => {
   const { loading } = useChat();
   const [loadingText, setLoadingText] = useState("");
+
   useEffect(() => {
     if (loading) {
       const interval = setInterval(() => {
@@ -26,7 +27,9 @@ const Dots = (props) => {
       setLoadingText("");
     }
   }, [loading]);
+
   if (!loading) return null;
+
   return (
     <group {...props}>
       <Text fontSize={0.14} anchorX={"left"} anchorY={"bottom"}>
@@ -38,29 +41,28 @@ const Dots = (props) => {
 };
 
 export const Experience = () => {
-  const cameraControls = useRef();
+  const cameraControls = useRef<CameraControls>(null);
   const { cameraZoomed } = useChat();
 
   useEffect(() => {
-    cameraControls.current.setLookAt(0, 2, 5, 0, 1.5, 0);
+    cameraControls.current?.setLookAt(0, 2, 5, 0, 1.5, 0);
   }, []);
 
   useEffect(() => {
     if (cameraZoomed) {
-      cameraControls.current.setLookAt(0, 1.5, 1.5, 0, 1.5, 0, true);
+      cameraControls.current?.setLookAt(0, 1.5, 1.5, 0, 1.5, 0, true);
     } else {
-      cameraControls.current.setLookAt(0, 2.2, 5, 0, 1.0, 0, true);
+      cameraControls.current?.setLookAt(0, 2.2, 5, 0, 1.0, 0, true);
     }
   }, [cameraZoomed]);
+
   return (
     <>
       <CameraControls ref={cameraControls} />
       <Environment preset="sunset" />
-      {/* <Suspense>
-        <Dots position-y={1.75} position-x={-0.02} />
-      </Suspense> */}
       <Avatar />
       <ContactShadows opacity={0.7} />
     </>
   );
 };
+
